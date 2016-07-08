@@ -85,7 +85,7 @@ const NSUInteger bitsPerComponent = 8;
     NSDictionary *strokeAttribute =
     @{
       NSFontAttributeName: scaledfont,
-      NSForegroundColorAttributeName: strokeColor,
+      NSStrokeColorAttributeName: strokeColor,
       NSStrokeWidthAttributeName: @(scaledStrokeWidth)
       };
     
@@ -93,6 +93,11 @@ const NSUInteger bitsPerComponent = 8;
     @{
       NSFontAttributeName: scaledfont,
       NSForegroundColorAttributeName: foregroundColor,
+      
+      // stroke 없이는 문자 렌더링 모양이 살짝 다르므로 stroke와 fill의 중심이 살짝 어긋나는 문제가 발생함.
+      // 투명색으로 강제로 inner stroke 를 줌.
+      NSStrokeColorAttributeName: [UIColor clearColor],
+      NSStrokeWidthAttributeName: @(-1)
       };
     
     CGSize scaledTextSize = [str sizeWithAttributes: strokeAttribute];
