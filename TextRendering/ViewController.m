@@ -155,7 +155,7 @@ const NSUInteger bitsPerComponent = 8;
     
     // CGContextSetAllowsAntialiasing( context, false );
     // CGContextSetInterpolationQuality( context, kCGInterpolationHigh );
-    CGContextTranslateCTM(context, 0.0f, (_bufferHeight - strokeWidth / 2) );
+    CGContextTranslateCTM(context, 0.0f, (_bufferHeight) );
     CGContextScaleCTM(context, 1.0f, -1.0f); //NOTE: NSString draws in UIKit referential i.e. renders upside-down compared to CGBitmapContext referential
     UIGraphicsPushContext(context);
     
