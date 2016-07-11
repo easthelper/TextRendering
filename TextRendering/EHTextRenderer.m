@@ -26,39 +26,37 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
 
 @implementation EHTextRenderer
 
--(instancetype)initWithX:(int)x
-                       y:(int)y
-                fontSize:(int)fontSize
-         foregroundColor:(UIColor *)foregroundColor
-             strokeWidth:(float)strokeWidth
-             strokeColor:(UIColor *)strokeColor
-                     msg:(NSString *)msg {
+- (instancetype)initWithPoint:(CGPoint)point
+                     fontSize:(int)fontSize
+              foregroundColor:(UIColor *)foregroundColor
+                  strokeWidth:(float)strokeWidth
+                  strokeColor:(UIColor *)strokeColor
+                          msg:(NSString *)msg {
     self = [super init];
     if (self) {
-        [self _initWithX:x y:y
-                fontSize:fontSize
-         foregroundColor:foregroundColor
-             strokeWidth:strokeWidth
-             strokeColor:strokeColor
-                     msg:msg];
+        [self _initWithPoint:point
+                    fontSize:fontSize
+             foregroundColor:foregroundColor
+                 strokeWidth:strokeWidth
+                 strokeColor:strokeColor
+                         msg:msg];
     }
     return self;
 }
 
--(void)_initWithX:(int)x
-               y:(int)y
-        fontSize:(int)fontSize
-  foregroundColor:(UIColor *)foregroundColor
-      strokeWidth:(float)strokeWidth
-      strokeColor:(UIColor *)strokeColor
-             msg:(NSString *)msg {
+- (void)_initWithPoint:(CGPoint)point
+              fontSize:(int)fontSize
+       foregroundColor:(UIColor *)foregroundColor
+           strokeWidth:(float)strokeWidth
+           strokeColor:(UIColor *)strokeColor
+                   msg:(NSString *)msg {
     // 스케일은 여기서 담당
     const float scale = self.scale;
     self.text = msg;
     self.strokeWidth = strokeWidth;
-    self.point = CGPointMake(x, y);
+    self.point = point;
     
-    NSLog(@"%d,%d,%d %f, %@ ", x,y,fontSize,strokeWidth,msg);
+    NSLog(@"%f, %f, %d, %f, %@ ", point.x, point.y, fontSize, strokeWidth, msg);
     
     // handle scale
     UIFont *scaledfont = [UIFont systemFontOfSize:fontSize * scale];
@@ -93,39 +91,19 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
     _bufferHeight = MIN(textPixelSize.height, kBufferHeightMax * scale);
 }
 
-+ (void)drawTextToBufferAtX:(int)x
-                          y:(int)y
-                   fontSize:(int)fontSize
-            foregroundColor:(UIColor *)foregroundColor
-                strokeWidth:(float)strokeWidth
-                strokeColor:(UIColor *)strokeColor
-                        msg:(NSString *)msg
-                     buffer:(unsigned char *)buffer
++ (UIImage *)textImageAtPoint:(CGPoint)point
+                     fontSize:(int)fontSize
+              foregroundColor:(UIColor *)foregroundColor
+                  strokeWidth:(float)strokeWidth
+                  strokeColor:(UIColor *)strokeColor
+                          msg:(NSString *)msg
 {
-    EHTextRenderer *renderer = [[EHTextRenderer alloc] initWithX:x y:y
-                                                        fontSize:fontSize
-                                                 foregroundColor:foregroundColor
-                                                     strokeWidth:strokeWidth
-                                                     strokeColor:strokeColor
-                                                             msg:msg];
-    
-    [renderer drawTextToBuffer:buffer];
-}
-
-+ (UIImage *)textImageAtX:(int)x
-                        y:(int)y
-                 fontSize:(int)fontSize
-          foregroundColor:(UIColor *)foregroundColor
-              strokeWidth:(float)strokeWidth
-              strokeColor:(UIColor *)strokeColor
-                      msg:(NSString *)msg
-{
-    EHTextRenderer *renderer = [[EHTextRenderer alloc] initWithX:x y:y
-            fontSize:fontSize
-     foregroundColor:foregroundColor
-         strokeWidth:strokeWidth
-         strokeColor:strokeColor
-                 msg:msg];
+    EHTextRenderer *renderer = [[EHTextRenderer alloc] initWithPoint:point
+                                                            fontSize:fontSize
+                                                     foregroundColor:foregroundColor
+                                                         strokeWidth:strokeWidth
+                                                         strokeColor:strokeColor
+                                                                 msg:msg];
     
     unsigned char *rawData = (unsigned char*) calloc(renderer.bufferLength, sizeof(unsigned char));
     
@@ -137,19 +115,18 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
     return image;
 }
 
--(void)drawTextToBuffer:(unsigned char *)buffer {
-    [self _drawTextToBufferAtX:self.scaledPoint.x y:self.scaledPoint.y
-               strokeAttribute:self.strokeAttribute
-           foregroundAttribute:self.foregroundAttribute
-                   strokeWidth:self.scaledStrokeWidth
-                           msg:self.text
-                        buffer:buffer];
+- (void)drawTextToBuffer:(unsigned char *)buffer {
+    [self _drawTextToBufferAtPoint:self.scaledPoint
+                   strokeAttribute:self.strokeAttribute
+               foregroundAttribute:self.foregroundAttribute
+                       strokeWidth:self.scaledStrokeWidth
+                               msg:self.text
+                            buffer:buffer];
 }
 
 
 // 이곳에서 스케일 다루지 말 것??
--(void)_drawTextToBufferAtX:(int)x
-                          y:(int)y
+- (void)_drawTextToBufferAtPoint:(CGPoint)point
             strokeAttribute:(NSDictionary *)strokeAttribute
         foregroundAttribute:(NSDictionary *)foregroundAttribute
                 strokeWidth:(float)strokeWidth
@@ -242,7 +219,6 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
                       strokeWidth:(float)strokeWidth {
     CGSize scaledTextSize = [text sizeWithAttributes: attributes];
     
-    // calculate pixelbased size
     int textWidth = scaledTextSize.width + strokeWidth;
     int textHeight = scaledTextSize.height + strokeWidth;
     

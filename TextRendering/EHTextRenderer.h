@@ -16,29 +16,21 @@
 @property (nonatomic, assign) int bufferHeight;
 @property (nonatomic, assign) float strokeWidth;
 
--(instancetype)initWithX:(int)x
-                       y:(int)y
-                fontSize:(int)fontSize
-         foregroundColor:(UIColor *)foregroundColor
-             strokeWidth:(float)strokeWidth
-             strokeColor:(UIColor *)strokeColor
-                     msg:(NSString *)msg;
+- (instancetype)initWithPoint:(CGPoint)point
+                     fontSize:(int)fontSize
+              foregroundColor:(UIColor *)foregroundColor
+                  strokeWidth:(float)strokeWidth
+                  strokeColor:(UIColor *)strokeColor
+                          msg:(NSString *)msg;
     
-+ (UIImage *)textImageAtX:(int)x
-                        y:(int)y
-                 fontSize:(int)fontSize
-          foregroundColor:(UIColor *)foregroundColor
-              strokeWidth:(float)strokeWidth
-              strokeColor:(UIColor *)strokeColor
-                      msg:(NSString *)msg;
++ (UIImage *)textImageAtPoint:(CGPoint)point
+                     fontSize:(int)fontSize
+              foregroundColor:(UIColor *)foregroundColor
+                  strokeWidth:(float)strokeWidth
+                  strokeColor:(UIColor *)strokeColor
+                          msg:(NSString *)msg;
 
-+ (UIImage *)imageFromBuffer:(unsigned char *)buffer
-                 bufferWidth:(NSUInteger)bufferWidth
-                bufferHeight:(NSUInteger)bufferHeight
-                bufferLength:(NSUInteger)bufferLength
-                       scale:(CGFloat)scale;
-
--(void)drawTextToBuffer:(unsigned char *)buffer;
+- (void)drawTextToBuffer:(unsigned char *)buffer;
 
 - (UIImage *)imageFromBuffer:(unsigned char *)buffer;
 

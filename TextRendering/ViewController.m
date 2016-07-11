@@ -40,30 +40,29 @@ const NSUInteger kBufferHeightMax = 512;
     UIColor *foregroundColor = [UIColor redColor];
     UIColor *strokeColor = [UIColor blackColor];
     
-//    UIImage *image = [EHTextRenderer textImageAtX:0 y:0
-//                                          fontSize:fontSize
-//                                   foregroundColor:foregroundColor
-//                                       strokeWidth:2
-//                                       strokeColor:strokeColor
-//                                               msg:text];
+    UIImage *image = [EHTextRenderer textImageAtPoint:CGPointZero
+                                             fontSize:fontSize
+                                      foregroundColor:foregroundColor
+                                          strokeWidth:2
+                                          strokeColor:strokeColor
+                                                  msg:text];
     
-    
-    EHTextRenderer *renderer = [[EHTextRenderer alloc] initWithX:0 y:0
-                                                        fontSize:fontSize
-                                                 foregroundColor:foregroundColor
-                                                     strokeWidth:2
-                                                     strokeColor:strokeColor
-                                                             msg:text];
-    
-    unsigned char *rawData = (unsigned char*) calloc(renderer.bufferLength, sizeof(unsigned char));
-    
-    [renderer drawTextToBuffer:rawData];
-    UIImage *image = [renderer imageFromBuffer:rawData];
-    
-    free(rawData);
-    
-//
+//    EHTextRenderer *renderer = [[EHTextRenderer alloc] initWithPoint:CGPointZero
+//                                                            fontSize:fontSize
+//                                                     foregroundColor:foregroundColor
+//                                                         strokeWidth:2
+//                                                         strokeColor:strokeColor
+//                                                                 msg:text];
 //    
+//    unsigned char *rawData = (unsigned char*) calloc(renderer.bufferLength, sizeof(unsigned char));
+//    
+//    [renderer drawTextToBuffer:rawData];
+//    UIImage *image = [renderer imageFromBuffer:rawData];
+//    
+//    free(rawData);
+//    
+//
+//
     self.imageView.image = image;
     self.imageView.frame = CGRectMake(0, 0,
                                       image.size.width,
