@@ -65,7 +65,7 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
     @{
       NSFontAttributeName: scaledfont,
       NSStrokeColorAttributeName: strokeColor,
-      NSStrokeWidthAttributeName: @(self.scaledStrokeWidth)
+      NSStrokeWidthAttributeName: @(self.strokeWidth)
       };
     
     NSDictionary *foregroundAttribute =
@@ -76,14 +76,14 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
       // stroke 없이는 문자 렌더링 모양이 살짝 다르므로 stroke와 fill의 중심이 살짝 어긋나는 문제가 발생함.
       // 투명색으로 강제로 inner stroke 를 줌.
       NSStrokeColorAttributeName: [UIColor clearColor],
-      NSStrokeWidthAttributeName: @(self.scaledStrokeWidth == 0 ? 0 : -1)
+      NSStrokeWidthAttributeName: @(self.strokeWidth == 0 ? 0 : -1)
       };
     self.strokeAttribute = strokeAttribute;
     self.foregroundAttribute = foregroundAttribute;
     
     CGSize textPixelSize = [EHTextRenderer estimatedSizeWithString:msg
                                                         attributes:strokeAttribute
-                                                       strokeWidth:self.scaledStrokeWidth];
+                                                       strokeWidth:self.strokeWidth];
     NSLog(@"g_renderedTextSize %@", NSStringFromCGSize(textPixelSize));
     
     // clipping with max buffer size
@@ -119,13 +119,13 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
     [self _drawTextToBufferAtPoint:self.scaledPoint
                    strokeAttribute:self.strokeAttribute
                foregroundAttribute:self.foregroundAttribute
-                       strokeWidth:self.scaledStrokeWidth
+                       strokeWidth:self.strokeWidth
                                msg:self.text
                             buffer:buffer];
 }
 
 
-// 이곳에서 스케일 다루지 말 것??
+// scale independent
 - (void)_drawTextToBufferAtPoint:(CGPoint)point
             strokeAttribute:(NSDictionary *)strokeAttribute
         foregroundAttribute:(NSDictionary *)foregroundAttribute
@@ -214,6 +214,7 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
     return image;
 }
 
+// scale independent
 + (CGSize)estimatedSizeWithString:(NSString *)text
                        attributes:(NSDictionary *)attributes
                       strokeWidth:(float)strokeWidth {
@@ -235,10 +236,6 @@ const static CGBitmapInfo kBitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitm
 - (float)scale {
     //    return [UIScreen mainScreen].scale;
     return 2;
-}
-
-- (float)scaledStrokeWidth {
-    return _strokeWidth * self.scale;
 }
 
 - (CGPoint)scaledPoint {

@@ -35,6 +35,7 @@ const NSUInteger kBufferHeightMax = 512;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     int fontSize = 30;
+    int strokeWidth = 5;
     NSString *text = @"안녕하세요\nHello PingPong";
 
     UIColor *foregroundColor = [UIColor redColor];
@@ -43,7 +44,7 @@ const NSUInteger kBufferHeightMax = 512;
     UIImage *image = [EHTextRenderer textImageAtPoint:CGPointZero
                                              fontSize:fontSize
                                       foregroundColor:foregroundColor
-                                          strokeWidth:2
+                                          strokeWidth:strokeWidth
                                           strokeColor:strokeColor
                                                   msg:text];
     
@@ -70,7 +71,13 @@ const NSUInteger kBufferHeightMax = 512;
     
     self.label.font = [UIFont systemFontOfSize:fontSize];
     self.label.numberOfLines = 0;
-    self.label.text = text;
+//    self.label.text = text;
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:text attributes:@{
+                                                                                                 NSFontAttributeName: [UIFont systemFontOfSize:fontSize],
+                                                                                                 NSStrokeColorAttributeName: strokeColor,
+                                                                                                 NSStrokeWidthAttributeName: @(strokeWidth)
+                                                                                                 }];
+    self.label.attributedText = attString;
 }
 
 - (void)didReceiveMemoryWarning {

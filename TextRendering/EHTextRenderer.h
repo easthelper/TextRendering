@@ -14,6 +14,8 @@
 @property (nonatomic, assign) CGPoint point;
 @property (nonatomic, assign) int bufferWidth;
 @property (nonatomic, assign) int bufferHeight;
+
+// this value is specified as a percentage of the font point size.
 @property (nonatomic, assign) float strokeWidth;
 
 - (instancetype)initWithPoint:(CGPoint)point
