@@ -14,6 +14,7 @@
 		21559FBB1D21231F0062A0DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21559FBA1D21231F0062A0DE /* Assets.xcassets */; };
 		21559FBE1D21231F0062A0DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21559FBC1D21231F0062A0DE /* LaunchScreen.storyboard */; };
 		21559FC91D21231F0062A0DE /* TextRenderingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21559FC81D21231F0062A0DE /* TextRenderingTests.m */; };
+		217FFF071D2F9B380068EA25 /* EHTextRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 217FFF061D2F9B380068EA25 /* EHTextRenderer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		21559FC41D21231F0062A0DE /* TextRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		21559FC81D21231F0062A0DE /* TextRenderingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextRenderingTests.m; sourceTree = "<group>"; };
 		21559FCA1D21231F0062A0DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		217FFF051D2F9B380068EA25 /* EHTextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHTextRenderer.h; sourceTree = "<group>"; };
+		217FFF061D2F9B380068EA25 /* EHTextRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHTextRenderer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,8 @@
 				21559FBC1D21231F0062A0DE /* LaunchScreen.storyboard */,
 				21559FBF1D21231F0062A0DE /* Info.plist */,
 				21559FAE1D21231F0062A0DE /* Supporting Files */,
+				217FFF051D2F9B380068EA25 /* EHTextRenderer.h */,
+				217FFF061D2F9B380068EA25 /* EHTextRenderer.m */,
 			);
 			path = TextRendering;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				217FFF071D2F9B380068EA25 /* EHTextRenderer.m in Sources */,
 				21559FB61D21231F0062A0DE /* ViewController.m in Sources */,
 				21559FB31D21231F0062A0DE /* AppDelegate.m in Sources */,
 				21559FB01D21231F0062A0DE /* main.m in Sources */,
@@ -402,6 +408,7 @@
 				21559FCF1D21231F0062A0DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		21559FD01D21231F0062A0DE /* Build configuration list for PBXNativeTarget "TextRenderingTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +417,7 @@
 				21559FD21D21231F0062A0DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
